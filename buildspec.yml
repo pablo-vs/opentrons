@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+    install:
+        runtime-versions:
+          nodejs: 12.x
+
+    pre_buld:
+      commands:
+        - npm install yarn
+
+    build:
+        commands:
+            - echo Starting dependency build at `date`
+            - make install-js
+            - echo Starting app build at `date`
+            - make -C app-shell dist-linux
+            
+        finally:
+            - echo Finished build at `date`
+            
+artifacts:
+    files:
+        - 'app-shell/dist/*'
